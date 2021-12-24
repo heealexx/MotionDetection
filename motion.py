@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 
 class DiscountedAveragerator:
     def __init__(self, alpha):
-        """Creates an averagerator with a specified discounting factor alpha."""
         self.alpha = alpha
         self.w = 0.
         self.sum_x = 0.
@@ -25,7 +24,6 @@ class DiscountedAveragerator:
     @property
     def std(self):
         mu = self.avg
-        # The np.maximum is purely for safety.
         return np.sqrt(np.maximum(0., self.sum_x_sq / self.w - mu * mu))
 
 class MotionDetection(object):
@@ -49,7 +47,9 @@ def detect_motion(image_list, num_sigmas = 4., discount = 0.96):
             detected_motion.append((i, motion))
     return detected_motion
 
-ZIP_URL = "https://storage.googleapis.com/lucadealfaro-share/GardenSequence.zip"
+ZIP_URL =  input("Enter ZIP URL for motion detection. If none, input n")
+if(ZIP_URL == 'n'):
+    ZIP_URL = "https://storage.googleapis.com/lucadealfaro-share/GardenSequence.zip"
 r = requests.get(ZIP_URL)
 
 image_array = []
